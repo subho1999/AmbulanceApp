@@ -2,4 +2,6 @@
     <string name="app_name">AmbulanceApp</string>
     <string name="button">Button</string>
     <string name="textview">Coordinates: </string>
+    <string name="call_now">Send Location</string>
+    <string name="call_an_ambulance">Request An Ambulance</string>
 </resources>

@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 
@@ -74,10 +75,6 @@ public class MainActivity extends AppCompatActivity {
         }else {
             configureButton();
         }
-
-
-
-
     }
 
     @Override
@@ -86,6 +83,8 @@ public class MainActivity extends AppCompatActivity {
             case 10:
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     configureButton();
+                }else{
+                    Toast.makeText(this, "Please grant location permission", Toast.LENGTH_LONG).show();
                 }
         }
     }
@@ -95,8 +94,8 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-                mLocationManager.requestLocationUpdates("gps", 5000, 0, mLocationListener);
-
+                //mLocationManager.requestLocationUpdates("gps", 0, 0, mLocationListener);
+                mLocationManager.requestSingleUpdate("gps",mLocationListener,null);
             }
         });
 
