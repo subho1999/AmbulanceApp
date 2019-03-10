@@ -17,26 +17,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.firebase.client.Firebase;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mButton;
     private TextView mTextView;
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
+    private Firebase url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         mButton = findViewById(R.id.button);
         mTextView = findViewById(R.id.textView);
+
+        Firebase.setAndroidContext(this);
+        url = new Firebase("https://ambulanceapp-4b0f9.firebaseio.com/");
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 mTextView.append("\n"+location.getLatitude()+" "+location.getLongitude());
+
+                Firebase firebase = url.child("Latitude");
+                firebase.setValue(location.getLatitude());
+                firebase = url.child("Longitude");
+                firebase.setValue(location.getLongitude());
             }
 
             @Override
@@ -61,10 +71,13 @@ public class MainActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.INTERNET
                 }, 10);
             }
-            return;
         }else {
             configureButton();
         }
+
+
+
+
     }
 
     @Override
@@ -83,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 mLocationManager.requestLocationUpdates("gps", 5000, 0, mLocationListener);
+
             }
         });
 
