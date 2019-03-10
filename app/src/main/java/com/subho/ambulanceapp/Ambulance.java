@@ -3,15 +3,26 @@ package com.subho.ambulanceapp;
 import java.util.UUID;
 
 public class Ambulance {
-    private final UUID mID = UUID.randomUUID();
     private int mStatus;
     private double mDestinationX;
     private double mDestinationY;
     private double mCurrentX;
     private double mCurrentY;
 
-    public UUID getID() {
-        return mID;
+    public double getDestinationX() {
+        return mDestinationX;
+    }
+
+    public double getDestinationY() {
+        return mDestinationY;
+    }
+
+    public double getCurrentX() {
+        return mCurrentX;
+    }
+
+    public double getCurrentY() {
+        return mCurrentY;
     }
 
     public int getStatus() {
@@ -28,6 +39,10 @@ public class Ambulance {
 
     public void setDestinationY(double destinationY) {
         mDestinationY = destinationY;
+    }
+
+    public Ambulance(){
+
     }
 
     public Ambulance(int status, double destinationX, double destinationY, double currentX, double currentY) {

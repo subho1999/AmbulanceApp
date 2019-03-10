@@ -13,13 +13,16 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.firebase.client.Firebase;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -28,9 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView mTextView;
     private LocationManager mLocationManager;
     private LocationListener mLocationListener;
-    private Firebase url;
-
-    private List<Hospital> mHospitalList;
+    private DatabaseReference mDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +40,14 @@ public class MainActivity extends AppCompatActivity {
         mButton = findViewById(R.id.button);
         mTextView = findViewById(R.id.textView);
 
-        setDatabase();
+        //setDatabase();
+        mDatabase = FirebaseDatabase.getInstance().getReference("Hospitals");
+        String id = mDatabase.push().getKey();
+        Hospital mHospital = new Hospital(Math.random()*360,Math.random()*360);
+        mDatabase.child(id).setValue(mHospital);
 
-        Firebase.setAndroidContext(this);
-        url = new Firebase("https://ambulanceapp-4b0f9.firebaseio.com/");
+        //mDatabase.setValue(mHospitalList);
+        //mDatabase.setValue(mH1);
 
         mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         mLocationListener = new LocationListener() {
@@ -50,10 +55,6 @@ public class MainActivity extends AppCompatActivity {
             public void onLocationChanged(Location location) {
                 mTextView.append("\n"+location.getLatitude()+" "+location.getLongitude());
 
-                Firebase firebase = url.child("Latitude");
-                firebase.setValue(location.getLatitude());
-                firebase = url.child("Longitude");
-                firebase.setValue(location.getLongitude());
             }
 
             @Override
@@ -106,10 +107,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void setDatabase(){
+    /*private void setDatabase(){
         int mNumHospitals = 1;
         for(int i = 0; i < mNumHospitals; ++i){
             mHospitalList.add(new Hospital());
         }
-    }
+    }*/
 }

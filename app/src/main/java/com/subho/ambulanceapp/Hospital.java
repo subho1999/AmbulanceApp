@@ -1,34 +1,41 @@
 package com.subho.ambulanceapp;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class Hospital {
-    private final UUID mID = UUID.randomUUID();
     private double mHomeX;
     private double mHomeY;
-    private int mNumAmbulance = 5;
-    private List<Ambulance> mAmbulanceList;
+    //private int mNumAmbulance = 5;
+    //private ArrayList<Ambulance> mAmbulanceList;
+    private Ambulance mA1;
 
-    public UUID getID() {
-        return mID;
-    }
-
-    public List<Ambulance> getAmbulanceList() {
+    /*public ArrayList<Ambulance> getAmbulanceList() {
         return mAmbulanceList;
     }
 
-    public void setAmbulanceList(List<Ambulance> ambulanceList) {
+    public void setAmbulanceList(ArrayList<Ambulance> ambulanceList) {
         mAmbulanceList = ambulanceList;
+    }*/
+    public Hospital(){
+
     }
 
-    public Hospital() {
-        mHomeX = Math.random()*360;
-        mHomeY = Math.random()*360;
-        createAmbulanceList();
+    public Hospital(double homeX, double homeY) {
+        mHomeX = homeX;
+        mHomeY = homeY;
+        mA1 = new Ambulance(0,0.0,0.0,mHomeX,mHomeY);
     }
 
-    private void createAmbulanceList(){
+    public double getHomeX() {
+        return mHomeX;
+    }
+
+    public double getHomeY() {
+        return mHomeY;
+    }
+/*private void createAmbulanceList(){
         for (int i = 0; i < mNumAmbulance; i++) {
             mAmbulanceList.add(new Ambulance(0,0,0,mHomeX,mHomeY));
         }
@@ -49,5 +56,13 @@ public class Hospital {
         if(!flag){
             //Implement after implementing dropoff function
         }
-    }
+    }*/
+    /*public void sendAmbulance(double destX, double destY){
+        if(mA1.getStatus() == 0){
+            mA1.setStatus(1);
+            mA1.setDestinationX(destX);
+            mA1.setDestinationY(destY);
+        }
+    }*/
+
 }
