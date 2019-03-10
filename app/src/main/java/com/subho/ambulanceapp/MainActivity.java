@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("MissingPermission")
             @Override
             public void onClick(View v) {
-                //mLocationManager.requestLocationUpdates("gps", 0, 0, mLocationListener);
                 mLocationManager.requestSingleUpdate("gps",mLocationListener,null);
             }
         });
