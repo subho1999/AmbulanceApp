@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 import com.firebase.client.Firebase;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button mButton;
@@ -28,12 +30,16 @@ public class MainActivity extends AppCompatActivity {
     private LocationListener mLocationListener;
     private Firebase url;
 
+    private List<Hospital> mHospitalList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mButton = findViewById(R.id.button);
         mTextView = findViewById(R.id.textView);
+
+        setDatabase();
 
         Firebase.setAndroidContext(this);
         url = new Firebase("https://ambulanceapp-4b0f9.firebaseio.com/");
@@ -98,5 +104,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setDatabase(){
+        int mNumHospitals = 1;
+        for(int i = 0; i < mNumHospitals; ++i){
+            mHospitalList.add(new Hospital());
+        }
     }
 }
