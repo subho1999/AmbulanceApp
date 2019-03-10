@@ -5,8 +5,9 @@ import java.util.UUID;
 
 public class Hospital {
     private final UUID mID = UUID.randomUUID();
-    private int mHomeX;
-    private int mHomeY;
+    private double mHomeX;
+    private double mHomeY;
+    private int mNumAmbulance = 5;
     private List<Ambulance> mAmbulanceList;
 
     public UUID getID() {
@@ -21,9 +22,32 @@ public class Hospital {
         mAmbulanceList = ambulanceList;
     }
 
-    public void createAmbulanceList(){
-        for (int i = 0; i < 5; i++) {
+    public Hospital() {
+        mHomeX = Math.random()*360;
+        mHomeY = Math.random()*360;
+        createAmbulanceList();
+    }
+
+    private void createAmbulanceList(){
+        for (int i = 0; i < mNumAmbulance; i++) {
             mAmbulanceList.add(new Ambulance(0,0,0,mHomeX,mHomeY));
+        }
+    }
+
+    public void sendAmbulance(double destX, double destY){
+        boolean flag = false;
+        for (int i = 0; i < mNumAmbulance; i++) {
+            if(mAmbulanceList.get(i).getStatus() == 0){
+                mAmbulanceList.get(i).setStatus(1);
+                mAmbulanceList.get(i).setDestinationX(destX);
+                mAmbulanceList.get(i).setDestinationY(destY);
+                flag = true;
+                break;
+            }
+        }
+
+        if(!flag){
+            //Implement after implementing dropoff function
         }
     }
 }

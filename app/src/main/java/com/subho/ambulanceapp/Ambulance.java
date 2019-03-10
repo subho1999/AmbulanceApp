@@ -5,16 +5,32 @@ import java.util.UUID;
 public class Ambulance {
     private final UUID mID = UUID.randomUUID();
     private int mStatus;
-    private int mDestinationX;
-    private int mDestinationY;
-    private int mCurrentX;
-    private int mCurrentY;
+    private double mDestinationX;
+    private double mDestinationY;
+    private double mCurrentX;
+    private double mCurrentY;
 
     public UUID getID() {
         return mID;
     }
 
-    public Ambulance(int status, int destinationX, int destinationY, int currentX, int currentY) {
+    public int getStatus() {
+        return mStatus;
+    }
+
+    public void setStatus(int status) {
+        mStatus = status;
+    }
+
+    public void setDestinationX(double destinationX) {
+        mDestinationX = destinationX;
+    }
+
+    public void setDestinationY(double destinationY) {
+        mDestinationY = destinationY;
+    }
+
+    public Ambulance(int status, double destinationX, double destinationY, double currentX, double currentY) {
         mStatus = status;
         mDestinationX = destinationX;
         mDestinationY = destinationY;
@@ -22,7 +38,7 @@ public class Ambulance {
         mCurrentY = currentY;
     }
 
-    public void pickupPatient(int destinationX, int destinationY){
+    public void pickupPatient(double destinationX, double destinationY){
         mStatus = 1;
         mDestinationX = destinationX;
         mDestinationY = destinationY;
